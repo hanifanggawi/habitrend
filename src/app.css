@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+
+:root {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --white: hsl(0, 0%, 100%);
+  --gray-dark: hsl(0, 0%, 24%);
+  --gray-medium: hsl(0, 0%, 20%);
+
+  --missed: #FF9D88;
+  --unmarked: #E3E3E3;
+  --did: #3AE9C9;
+  --future: #C6C6C6;
+
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #FAFAFA;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input,
+button {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.missed {
+  background: #FF9D88;
+  border-color: #FF9D88;
+}
+.unmarked {
+  background: #E3E3E3;
+  border-color: #E3E3E3;
+}
+.did {
+  background: #3AE9C9;
+  border-color: #3AE9C9;
+}
+.future {
+  background: #C6C6C6;
+  border-color: #C6C6C6;
+}
