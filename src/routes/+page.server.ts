@@ -1,17 +1,7 @@
-import { fetchHabitRecords, fetchHabits, populateMonthlyData } from "../lib/server/database";
-import type { Actions, PageServerLoad } from "./$types";
+import { redirect } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
-  return {
-    habitRecords: fetchHabitRecords(1,1),
-    habits: fetchHabits()
-  }
+  const selectedHabit = await prisma.habit.findFirst()
+  throw redirect(308, `/records/${selectedHabit?.id}`)
 }
-
-export const actions: Actions = {
-  populate_monthly_data: async ({ request: _ }) => {
-    await populateMonthlyData()
-
-    return { success: true }
-  }
-} satisfies Actions;

@@ -1,12 +1,10 @@
 <script>
   import '../app.css';
-  import logo from '$lib/assets/habitrend-logo.svg'
+	import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
 <div class="main-container">
-  <nav>
-    <img src={logo} alt="">
-  </nav>
+  <Navbar/>
   <slot />
 </div>
 
@@ -17,21 +15,5 @@
     grid-template-columns: 5em auto 1fr;
     min-height: 100vh;
     justify-content: stretch;
-  }
-
-  nav {
-    width: 2em;
-    padding: 1em;
-    background: #03363D;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: -2px 0px 9.00396px rgba(0, 0, 0, 0.1);
-
-    img {
-      width: 2.2em;
-      height: 2.2em;
-    }
   }
 </style>

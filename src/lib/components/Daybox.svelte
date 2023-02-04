@@ -5,7 +5,11 @@
   export let habitRecord: HabitRecord
   const { date } = habitRecord
   $: status = habitRecord.status
-  let isCurrentMonth: boolean = date.getMonth() === new Date().getMonth()
+
+  const today = new Date()
+  const isCurrentMonth: boolean = date.getMonth() === today.getMonth()
+  const isCurrentMonthTag = !(date.getMonth() === today.getMonth()) ? 'inactive-month' : ''
+  const isFutureTag = (today < date) ? 'future-date' : ''
 
   function selectDay() {
     selectedHabitRecord.set(habitRecord)
@@ -13,7 +17,7 @@
   }
 </script>
 
-<div class="daybox {status} {!isCurrentMonth ? 'inactive-month' : ''}" on:click={selectDay} on:keypress={selectDay}>
+<div class="daybox {status} {isCurrentMonthTag} {isFutureTag}" on:click={selectDay} on:keypress={selectDay}>
   <span>{date.getDate()}</span>
 </div>
 
@@ -52,6 +56,11 @@
 
   .inactive-month {
     opacity: 0.7;
+    cursor: default;
+  }
+
+  .future-date:not(.inactive-month) {
+    filter: brightness(95%);
     cursor: default;
   }
 </style>

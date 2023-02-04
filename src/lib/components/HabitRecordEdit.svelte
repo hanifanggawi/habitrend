@@ -7,8 +7,7 @@
 	import type { Habit, HabitRecord } from "@prisma/client";
 
   export let habitRecord: HabitRecord = get(selectedHabitRecord)
-  const habits: Habit[] = get(page).data.habits
-  const habit = habits.find(habit => habit.id === habitRecord.habitId)
+  const habit: Habit = get(page).data.habit
   let selectedStatus = habitRecord.status as HabitStatus
   let displayDate = DateTime.fromJSDate(habitRecord.date).toFormat('EEEE, dd LLLL')
   selectedHabitRecord.subscribe(habitRecord => {

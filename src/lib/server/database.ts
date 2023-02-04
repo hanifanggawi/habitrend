@@ -2,13 +2,12 @@ import type { Prisma } from "@prisma/client"
 import { getDateLimits } from "../util"
 import { prisma } from "./prisma"
 
-export async function populateMonthlyData() {
+export async function populateMonthlyData(monthNumber: number) {
   const habits = await prisma.habit.findMany()
 
   for (const habit of habits) {
-    const today = new Date()
-    const month = today.getMonth()
-    const year = today.getFullYear()
+    const month = monthNumber
+    const year = new Date().getFullYear()
 
     const firstDayofMonth = new Date(year, month, 1)
     const lastDayOfMonth = new Date(year, month + 1, 0);
@@ -16,6 +15,7 @@ export async function populateMonthlyData() {
     const prevMonthDayCount = firstDayofMonth.getDay() - 1
     const nextMonthDayCount = 7 - lastDayOfMonth.getDay()
 
+    let numRowsAffected = 0 
     for (
       let date = new Date(year, month, -prevMonthDayCount);
       date <= new Date(year, month, lastDayOfMonth.getDate() + nextMonthDayCount);
@@ -34,15 +34,25 @@ export async function populateMonthlyData() {
         },
         update: {}
       }
-      const result = await prisma.habitRecord.upsert(args)
-      console.log("insert succesfull", result.date)
+      await prisma.habitRecord.upsert(args)
+      numRowsAffected++
     }
+    console.log(`Upserted ${numRowsAffected} row(s)`)
   }
 }
 
 export async function fetchHabits() {
   const records = await prisma.habit.findMany()
   return records
+}
+
+export async function fetchHabitById(id: number) {
+  const habit = await prisma.habit.findUnique({
+    where: {
+      id: Number(id)
+    }
+  })
+  return habit
 }
 
 export async function fetchHabitRecords(month: number, habitId: number) {
