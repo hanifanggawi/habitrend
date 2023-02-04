@@ -1,11 +1,19 @@
 <script lang="ts">
-	import type { HabitStatus } from "../types";
-  export let status: HabitStatus = 'future'
-  export let date: Date
-  export let isCurrentMonth: boolean = true
+	import type { HabitRecord } from "@prisma/client";
+	import { selectedHabitRecord, showSidepanel } from "../../store";
+  
+  export let habitRecord: HabitRecord
+  const { date } = habitRecord
+  $: status = habitRecord.status
+  let isCurrentMonth: boolean = date.getMonth() === new Date().getMonth()
+
+  function selectDay() {
+    selectedHabitRecord.set(habitRecord)
+    showSidepanel.set(true)
+  }
 </script>
 
-<div class="daybox {status} {!isCurrentMonth ? 'inactive-month' : ''}">
+<div class="daybox {status} {!isCurrentMonth ? 'inactive-month' : ''}" on:click={selectDay} on:keypress={selectDay}>
   <span>{date.getDate()}</span>
 </div>
 

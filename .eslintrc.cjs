@@ -16,5 +16,16 @@ module.exports = {
 		browser: true,
 		es2017: true,
 		node: true
+	},
+	rules: {
+		'@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        'vars': 'all',
+        'args': 'all',
+        'varsIgnorePattern': '^\_.*$',
+        'argsIgnorePattern': '^\_.*$',
+      }
+    ]
 	}
 };

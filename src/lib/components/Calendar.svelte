@@ -1,44 +1,32 @@
 <script lang="ts">
+	import type { HabitRecord } from "@prisma/client";
+	import { habitRecordStore } from "../../store";
 	import Daybox from "./Daybox.svelte";
 
-  const monthlyDates: Date[] = []
+  export let habitRecords: HabitRecord[]
+  habitRecordStore.set(habitRecords)
   const today = new Date()
-  const month = today.getMonth()
   const year = today.getFullYear()
 
-  const firstDayofMonth = new Date(year, month, 1)
-  const lastDayOfMonth = new Date(year, month+1, 0);
-
-  const prevMonthDayCount = firstDayofMonth.getDay()
-  const nextMonthDayCount = 6 - lastDayOfMonth.getDay()
-  for (let i = 1; i < lastDayOfMonth.getDate() + 1; i++) {
-    monthlyDates.push(new Date(year, month, i))
-  }
   const daynames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  const monthName = today.toLocaleString('default', { month: 'long' }).toLocaleUpperCase()
+  const displayMonth = today.toLocaleString('default', { month: 'long' }).toLocaleUpperCase() + " " + year
 </script>
 
 <div class="calendar-box">
-  <h1>{monthName}</h1>
+  <h1>{displayMonth}</h1>
   <div class="calendar">
     {#each daynames as dayname}
        <span class="day-label"> {dayname} </span>
     {/each}
-    {#each {length: prevMonthDayCount} as _, i}
-      <Daybox date={new Date(year, month -1, i)} isCurrentMonth={false}/>
-    {/each}
-    {#each monthlyDates as day}
-       <Daybox date={day}/>
-    {/each}
-    {#each {length: nextMonthDayCount} as _, i}
-      <Daybox date={new Date(year, month +1, i+1)} isCurrentMonth={false}/>
+    {#each $habitRecordStore as habitRecord (habitRecord.id)}
+      <Daybox habitRecord={habitRecord}/>
     {/each}
   </div>
 </div>
 
 <style>
   .calendar-box {
-    padding: 2em;
+    padding: 2em 4em;
   }
 
   .calendar {

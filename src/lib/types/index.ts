@@ -1,13 +1,13 @@
 export type HabitStatus = 'did' | 'missed' | 'unmarked' | 'future'
 
 export type HabitRecord = {
-  id: number
+  id?: number
   date: Date
   status: HabitStatus
   habit: Habit
 }
 
 export type Habit = {
-  id: number,
+  id?: number,
   name: string
 }

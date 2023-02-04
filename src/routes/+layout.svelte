@@ -1,10 +1,11 @@
 <script>
   import '../app.css';
+  import logo from '$lib/assets/habitrend-logo.svg'
 </script>
 
 <div class="main-container">
   <nav>
-    <img src="habitrend-logo.svg" alt="">
+    <img src={logo} alt="">
   </nav>
   <slot />
 </div>
