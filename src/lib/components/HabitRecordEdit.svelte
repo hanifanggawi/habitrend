@@ -13,7 +13,7 @@
   let displayDate = DateTime.fromJSDate(habitRecord.date).toFormat('EEEE, dd LLLL')
   selectedHabitRecord.subscribe(habitRecord => {
     selectedStatus = habitRecord.status as HabitStatus
-    displayDate = DateTime.fromJSDate(habitRecord.date).toFormat('EEEE, dd LLLL')
+    displayDate = DateTime.fromJSDate(new Date(habitRecord.date)).toFormat('EEEE, dd LLLL')
   })
 
   async function updateRecord() {
