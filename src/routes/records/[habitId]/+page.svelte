@@ -3,9 +3,9 @@
 	import Sidepanel from '$lib/components/Sidepanel.svelte';
 	import type { HabitRecord } from '@prisma/client';
 	import { showSidepanel } from '../../../store';
-    import type { PageData } from './$types';
+	import type { PageData } from './$types';
     
-    export let data: PageData
+	export let data: PageData
 	const habitRecords: HabitRecord[] = data.habitRecords
 </script>
 

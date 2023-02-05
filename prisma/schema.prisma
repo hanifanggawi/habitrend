@@ -22,5 +22,6 @@ model HabitRecord {
 model Habit {
   id          Int           @id @default(autoincrement())
   name        String
+  description String?
   HabitRecord HabitRecord[]
 }

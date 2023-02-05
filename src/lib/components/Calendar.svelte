@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import type { Habit, HabitRecord } from "@prisma/client";
-  import { goto, invalidate } from '$app/navigation';
+  import { goto } from '$app/navigation';
 	import { get } from "svelte/store";
 	import { habitRecordStore } from "../../store";
 	import { DAY_NAMES } from "../constants";
@@ -24,7 +24,7 @@
   }
 </script>
 
-<div class="calendar-box">
+<div class="main-container">
   <div class="calendar-header">
     <h1>{displayMonth}</h1>
     <label for="habit" class="habit-label">
@@ -47,10 +47,6 @@
 </div>
 
 <style lang="scss">
-  .calendar-box {
-    padding: 2em 4em;
-  }
-
   .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -96,9 +92,9 @@
     margin-left: 1em;
 		box-shadow: 2px 2px 9.00396px rgba(0, 0, 0, 0.08);
     text-transform: uppercase;
-    color: var(--gray-dark);
+    background: var(--gray-dark);
+    color: white;
     text-align: center;
-
 
     &:focus {
       outline: none;
@@ -110,5 +106,7 @@
     cursor: pointer;
     font-weight: 600;
     text-transform: uppercase;
+    border-radius: 0px;
+    padding: 1em;
   }
 </style>

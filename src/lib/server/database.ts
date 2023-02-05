@@ -73,3 +73,29 @@ export async function fetchHabitRecords(month: number, habitId: number) {
   })
   return records
 }
+
+export async function createHabit(params: Prisma.HabitCreateInput) {
+  const habit = await prisma.habit.create({
+    data: params
+  })
+  return habit
+}
+
+export async function updatehabit(id: number, params: Prisma.HabitUpdateInput) {
+  const updatedHabit = await prisma.habit.update({
+    where: {
+      id: id
+    },
+    data: params
+  })
+  return updatedHabit
+}
+
+export async function deleteHabit(id: number) {
+  const deletedHabit = await prisma.habit.delete({
+    where: {
+      id: id
+    },
+  })
+  return deletedHabit
+}

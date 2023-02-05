@@ -1,11 +1,27 @@
 <script lang="ts">
 	import logo from '$lib/assets/habitrend-logo.svg';
+	import iconCalendar from '$lib/assets/icon-calendar.svg';
+	import iconHabit from '$lib/assets/icon-habit.svg';
 </script>
 
 <nav>
-  <a href="/">
-    <img src={logo} alt="logo-brand" />
-  </a>
+	<div class="nav-brand">
+		<a href="/">
+			<img src={logo} alt="logo-brand" />
+		</a>
+	</div>
+	<ul class="nav-items">
+		<li>
+			<a href="/">
+				<img class="nav-icon" src={iconCalendar} alt="icon-calendar">
+			</a>
+		</li>
+		<li>
+			<a href="/habits">
+				<img class="nav-icon" src={iconHabit} alt="icon-habits">
+			</a>
+		</li>
+	</ul>
 </nav>
 
 <style lang="scss">
@@ -23,5 +39,28 @@
 			width: 2.2em;
 			height: 2.2em;
 		}
+	}
+
+	.nav-brand {
+		padding-bottom: 3.5em;
+	}
+
+	.nav-items {
+		display: flex;
+		flex-direction: column;
+		row-gap: 2em;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.nav-icon {
+		width: 2.2em;
+		height: 2.2em;
 	}
 </style>

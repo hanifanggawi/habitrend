@@ -3,6 +3,7 @@
     Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --white: hsl(0, 0%, 100%);
   --gray-dark: hsl(0, 0%, 24%);
+  --gray-medium: hsl(0, 0%, 35%);
   --gray-light: hsl(0, 0%, 50%);
 
   --missed: #FF9D88;
@@ -20,6 +21,10 @@ body {
   padding: 0;
 }
 
+h1,h2,h3, p {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -28,6 +33,46 @@ a {
 input, button, select, option {
   font-size: inherit;
   font-family: inherit;
+}
+
+.main-container {
+  padding: 2em 4em;
+}
+
+.button-fill, .button-outline {
+  padding: 0.9em 1em;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bolder;
+  border: none;
+  box-shadow: 0px 0px 9.00396px rgba(0, 0, 0, 0.21);
+  min-width: 8em;
+}
+
+.button-fill {
+  background: var(--gray-dark);
+  color: white;
+
+  &:hover {
+    background-color: var(--gray-medium);
+  }
+}
+
+.button-outline {
+  color: var(--gray-dark);
+  background: white;
+  &:hover {
+    background-color: #eeeeee;
+  }
+}
+
+.danger {
+  background: #e86666;
+  justify-self: flex-start;
+
+  &:hover {
+    background: #f77979;
+  }
 }
 
 .missed {
