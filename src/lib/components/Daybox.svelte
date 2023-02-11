@@ -7,7 +7,6 @@
   $: status = habitRecord.status
 
   const today = new Date()
-  const isCurrentMonth: boolean = date.getMonth() === today.getMonth()
   const isCurrentMonthTag = !(date.getMonth() === today.getMonth()) ? 'inactive-month' : ''
   const isFutureTag = (today < date) ? 'future-date' : ''
 
