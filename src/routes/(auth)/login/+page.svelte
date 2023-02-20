@@ -1,8 +1,8 @@
 <script lang="ts">
     import googleIcon from '$lib/assets/icon-google.svg'
-    import { page } from '$app/stores';
-	import { get } from 'svelte/store';
-    const formData = get(page).form
+    import type { ActionData } from './$types';
+
+    export let form: ActionData
 </script>
 
 <div>
@@ -22,9 +22,9 @@
             <div class="form-label">Password</div>
             <input class="form-input" type="password" name="password" placeholder="Password" autocomplete="current-password">
         </label>
-        {#if formData?.error}
+        {#if form?.error}
              <div class="error-box">
-                {formData?.error}
+                {form?.error}
              </div>
         {/if}
         <div class="form-buttons">
