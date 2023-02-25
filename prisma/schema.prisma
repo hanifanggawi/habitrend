@@ -6,16 +6,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model HabitRecord {
-  id      Int    @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   date    DateTime
   status  String
-  habit   Habit  @relation(fields: [habitId], references: [id])
+  habit   Habit    @relation(fields: [habitId], references: [id])
   habitId Int
+
   @@unique([date, habitId], name: "habitRecordIdentifier")
 }
 

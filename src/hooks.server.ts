@@ -19,6 +19,7 @@ const logger: Handle = async ({ event, resolve }) => {
     new Date(requestStartTime).toISOString(),
     event.request.method,
     event.url.pathname,
+    event.url.search,
     response.status,
     `(${Date.now() - requestStartTime}ms)`,
   );

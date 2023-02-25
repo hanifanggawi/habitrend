@@ -9,7 +9,7 @@
     <form class="form-box" action="/login" method="POST">
         <h1 class="form-header">Login</h1>
         <div class="oauth-login">
-            <button class="button-outline oauth" type="button">
+            <button class="button-outline oauth" formaction="/login?provider=google" type="submit">
                 <img src={googleIcon} alt="google-login" width="20">
                 <span>Sign in with google</span>
             </button>
