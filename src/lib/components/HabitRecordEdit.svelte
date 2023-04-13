@@ -2,15 +2,15 @@
 	import type { HabitStatus } from "../types";
   import { DateTime } from "luxon";
 	import { habitRecordStore, selectedHabitRecord } from "../../store";
-	import { get } from "svelte/store";
   import { page } from '$app/stores';
 	import type { Habit, HabitRecord } from "@prisma/client";
 
-  export let habitRecord: HabitRecord = get(selectedHabitRecord)
-  const habit: Habit = get(page).data.habit
+  export let habitRecord: HabitRecord = $selectedHabitRecord
+  const habit: Habit = $page.data.habit
   let selectedStatus = habitRecord.status as HabitStatus
   let displayDate = DateTime.fromJSDate(habitRecord.date).toFormat('EEEE, dd LLLL')
   selectedHabitRecord.subscribe(habitRecord => {
+    console.log('DISINI habitRecord.id', habitRecord.id)
     selectedStatus = habitRecord.status as HabitStatus
     displayDate = DateTime.fromJSDate(new Date(habitRecord.date)).toFormat('EEEE, dd LLLL')
   })
@@ -21,6 +21,7 @@
       status: selectedStatus,
       date: habitRecord.date
     }
+    console.log('DISINI reqBody', reqBody)
     const response = await fetch('/api/habit-record', {
       method: 'POST',
       headers: {
@@ -29,9 +30,13 @@
       body: JSON.stringify(reqBody)
     })
     const { data: updatedHabitRecord } = await response.json()
+    console.log('DISINI updatedHabitRecord', updatedHabitRecord)
     habitRecordStore.update((habitRecords) => {
       const index = habitRecords.findIndex(record => record.id === habitRecord.id)
-      habitRecords[index] = updatedHabitRecord
+      habitRecords[index] = { 
+        ...updatedHabitRecord, 
+        date: new Date(updatedHabitRecord.date)
+      }
       return habitRecords
     })
     return updatedHabitRecord

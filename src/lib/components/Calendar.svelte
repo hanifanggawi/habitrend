@@ -1,21 +1,25 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from "$app/stores";
 	import type { Habit, HabitRecord } from "@prisma/client";
-  import { goto } from '$app/navigation';
-	import { get } from "svelte/store";
 	import { habitRecordStore } from "../../store";
-	import { DAY_NAMES } from "../constants";
+	import { DAY_NAMES, MONTH_NAMES } from "../constants";
+	import { getDateQuery } from "../util";
 	import Daybox from "./Daybox.svelte";
+	import iconCalendar from '$lib/assets/icon-calendar.svg';
+	import MonthPicker from './MonthPicker.svelte';
 
   export let habitRecords: HabitRecord[]
   habitRecordStore.set(habitRecords)
-  const today = new Date()
-  const year = today.getFullYear()
+  
+  const habits: Habit[] = $page.data.habits
+  const habitId: number = Number($page.params.habitId)
 
-  const habits: Habit[] = get(page).data.habits
-  const habitId: number = Number(get(page).params.habitId)
+  const { selectedMonth, selectedYear } = getDateQuery($page.url)
 
-  const displayMonth = today.toLocaleString('default', { month: 'long' }).toLocaleUpperCase() + " " + year
+  const displayMonth = MONTH_NAMES[selectedMonth] + " " + selectedYear
+
+  let openMonthPicker: boolean = false
 
   let selectedHabitId = habitId
   async function handleHabitSelect() {
@@ -26,7 +30,11 @@
 
 <div class="main-container">
   <div class="calendar-header">
-    <h1>{displayMonth}</h1>
+    <div class="month-display" on:click={() => { openMonthPicker = !openMonthPicker }} on:keypress>
+      <h1>{displayMonth}</h1>
+      <img class="month-select-button" src={iconCalendar} alt="change-month">
+    </div>
+    
     <label for="habit" class="habit-label">
       Habit: 
       <select name="habit" bind:value={selectedHabitId} on:change={handleHabitSelect}>
@@ -35,11 +43,15 @@
         {/each}
       </select>
     </label>
+  
+    <MonthPicker open={openMonthPicker} />
   </div>
-  <div class="calendar">
+  <div class="day-names">
     {#each DAY_NAMES as dayname}
        <span class="day-label"> {dayname} </span>
     {/each}
+  </div>
+  <div class="calendar">
     {#each $habitRecordStore as habitRecord (habitRecord.id)}
       <Daybox habitRecord={habitRecord}/>
     {/each}
@@ -52,12 +64,21 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1em;
+    position: relative;
+  }
+
+  .day-names {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(7, 6em);
+    padding-bottom: 1em;
   }
 
   .calendar {
     display: grid;
     grid-template-columns: repeat(7, 6em);
-    grid-template-rows: 1em repeat(5, 6em);
+    grid-auto-rows: 6em;
+    grid-auto-columns: 6em;
     gap: 1em;
     justify-content: start;
   }
@@ -74,6 +95,7 @@
     margin: 0;
     font-weight: bold;
     color: var(--gray-dark);
+    text-transform: uppercase;
   }
 
   .habit-label {
@@ -108,5 +130,29 @@
     text-transform: uppercase;
     border-radius: 0px;
     padding: 1em;
+  }
+
+  .month-display {
+    display: flex;
+    column-gap: 1em;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover .month-select-button {
+      opacity: 1;
+    }
+  }
+
+  .month-select-button {
+    opacity: 0;
+    filter: invert(76%);
+    height: 1.5em;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 </style>

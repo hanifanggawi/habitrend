@@ -15,7 +15,7 @@ export async function populateMonthlyData(monthNumber: number) {
     const prevMonthDayCount = firstDayofMonth.getDay() - 1
     const nextMonthDayCount = 7 - lastDayOfMonth.getDay()
 
-    let numRowsAffected = 0 
+    let numRowsAffected = 0
     for (
       let date = new Date(year, month, -prevMonthDayCount);
       date <= new Date(year, month, lastDayOfMonth.getDate() + nextMonthDayCount);
@@ -55,8 +55,9 @@ export async function fetchHabitById(id: number) {
   return habit
 }
 
-export async function fetchHabitRecords(month: number, habitId: number) {
-  const { startDate, endDate } = getDateLimits(month)
+export async function fetchHabitRecords(habitId: number, month: number, year?: number) {
+  year ||= new Date().getFullYear()
+  const { startDate, endDate } = getDateLimits(month, year)
   const records = await prisma.habitRecord.findMany({
     where: {
       date: {

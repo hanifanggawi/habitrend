@@ -50,7 +50,7 @@ export const actions: Actions = {
             }
         }
 
-        // console.log('DISINI data', data)
+        console.log('DISINI data', data)
 
         throw redirect(303, '/')
     },

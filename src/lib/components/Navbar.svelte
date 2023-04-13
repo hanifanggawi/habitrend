@@ -33,24 +33,27 @@
 </nav>
 
 <style lang="scss">
-	nav {
-		width: 2em;
-		padding: 2em 1em;
-		background: #03363d;
-
+	  nav {
 		display: flex;
-		flex-direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
 		align-items: center;
-		box-shadow: -2px 0px 9.00396px rgba(0, 0, 0, 0.1);
+    background: var(--teal-dark);
+    height: 100%;
+    z-index: 10;
+		width: 2em;
+		padding: 0 1em;
 
 		img {
 			width: 2.2em;
 			height: 2.2em;
 		}
-	}
+  }
 
 	.nav-brand {
 		padding-bottom: 3.5em;
+		padding-top: 1em;
 	}
 
 	.nav-items {
@@ -72,6 +75,7 @@
 		height: 2.2em;
 	}
 	.nav-bottom {
+		padding-bottom: 1em;
 		margin-top: auto;
 	}
 
