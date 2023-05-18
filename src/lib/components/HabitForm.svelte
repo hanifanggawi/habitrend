@@ -11,7 +11,6 @@
 	let showModal = false;
 
 	function handleCancel() {
-		console.log('kena yang ini')
 		goto('/habits');
 	}
 

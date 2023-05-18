@@ -5,11 +5,16 @@
   --gray-dark: hsl(0, 0%, 24%);
   --gray-medium: hsl(0, 0%, 35%);
   --gray-light: hsl(0, 0%, 50%);
-
+  --gray-bg: hsl(270, 6%, 94%);
+  --danger: #e86666;
+  
+  --teal-dark: #03363d;
   --missed: #FF9D88;
   --unmarked: #E3E3E3;
   --did: #3AE9C9;
   --future: #C6C6C6;
+
+  --light-shadow: 0px 0px 9px rgba(0, 0, 0, 0.11);
 
   box-sizing: border-box;
 }
@@ -67,7 +72,7 @@ input, button, select, option {
 }
 
 .danger {
-  background: #e86666;
+  background: var(--danger);
   justify-self: flex-start;
 
   &:hover {

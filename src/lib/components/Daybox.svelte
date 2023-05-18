@@ -1,23 +1,28 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import type { HabitRecord } from "@prisma/client";
 	import { selectedHabitRecord, showSidepanel } from "../../store";
+	import { getDateQuery } from "../util";
   
   export let habitRecord: HabitRecord
   const { date } = habitRecord
   $: status = habitRecord.status
 
-  const today = new Date()
-  const isCurrentMonth: boolean = date.getMonth() === today.getMonth()
-  const isCurrentMonthTag = !(date.getMonth() === today.getMonth()) ? 'inactive-month' : ''
-  const isFutureTag = (today < date) ? 'future-date' : ''
+  const { selectedMonth, selectedYear } = getDateQuery($page.url)
 
+  const today = new Date()
+  const selectedDay = new Date(selectedYear, selectedMonth, today.getDate())
+
+  const isCurrentMonthTag = (date.getMonth() !== selectedDay.getMonth()) ? 'inactive-month' : ''
+  const isFutureTag = (date > today) ? 'future-date' : ''
+  const isTodayTag = (today.toLocaleDateString() === date.toLocaleDateString()) ? 'today' : ''
   function selectDay() {
     selectedHabitRecord.set(habitRecord)
     showSidepanel.set(true)
   }
 </script>
 
-<div class="daybox {status} {isCurrentMonthTag} {isFutureTag}" on:click={selectDay} on:keypress={selectDay}>
+<div class="daybox {status} {isCurrentMonthTag} {isFutureTag} {isTodayTag}" on:click={selectDay} on:keypress={selectDay}>
   <span>{date.getDate()}</span>
 </div>
 
@@ -62,5 +67,9 @@
   .future-date:not(.inactive-month) {
     filter: brightness(95%);
     cursor: default;
+  }
+
+  .today {
+    box-shadow:inset 0px 0px 0px 2.5px #757575;
   }
 </style>

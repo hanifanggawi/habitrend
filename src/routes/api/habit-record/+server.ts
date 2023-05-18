@@ -5,18 +5,21 @@ import { json } from "@sveltejs/kit";
 export const POST: RequestHandler = async ({ request }) => {
   const reqbody = await request.json();
   const { habitId, status, date } = reqbody
-    const data = await prisma.habitRecord.update({
-      where: {
-        habitRecordIdentifier: {
-          habitId,
-          date
-        },
-      },
-      data: {
-        habitId: habitId,
-        date: date,
-        status: status
+  const data = await prisma.habitRecord.upsert({
+    where: {
+      habitRecordIdentifier: {
+        habitId,
+        date
       }
-    })
-    return json({ data, error: null })
+    },
+    create: {
+      date: date,
+      status: status,
+      habitId: habitId
+    },
+    update: {
+      status
+    }
+  })
+  return json({ data: data, error: null })
 }
