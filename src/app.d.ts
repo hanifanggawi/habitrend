@@ -3,6 +3,7 @@
 
 import type { PrismaClient } from "@prisma/client";
 import type { TypedSupabaseClient } from '@supabase/auth-helpers-sveltekit'
+import type { AuthUser } from "@prisma/client";
 
 // for information about these interfaces
 declare global {
@@ -10,13 +11,20 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			sb: TypedSupabaseClient,
-			session: Session | null
+			session: Session | null,
+			auth: import("lucia-auth").AuthRequest;
 		}
 		interface PageData {
 			session: import('@supabase/supabase-js').Session | null,
 		}
 		// interface Platform {}
 	}
+
+	namespace Lucia {
+		type Auth = import("$lib/server/lucia").Auth;
+		type UserAttributes = Omit<AuthUser, 'id'>
+	}
+
 	var prisma: PrismaClient
 }
 

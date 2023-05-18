@@ -1,19 +1,6 @@
 <script lang="ts">
   import '../../app.scss';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { onMount } from 'svelte';
-	import { supabaseClient } from '$lib/database/supabase';
-	import { invalidateAll } from '$app/navigation';
-
-  onMount(() => {
-    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange(() => {
-      invalidateAll()
-    })
-
-    return () => {
-      subscription.unsubscribe();
-    }
-  })
 </script>
 
 <Navbar/>
