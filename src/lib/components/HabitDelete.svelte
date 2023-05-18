@@ -2,7 +2,7 @@
 	import type { Habit } from "@prisma/client";
 
   export let habit: Habit | null
-  export let handleClose: () => void
+  export let handleClose: () => void;
 </script>
 
 <div class="modal-content">
