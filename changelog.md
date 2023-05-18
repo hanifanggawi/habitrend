@@ -10,3 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Habit Record CRUD
 - Habit CRUD
 - Database
+
+## [0.2.0] - 2023-05-18
+### Added
+- Authentication
+- Month & year selection
