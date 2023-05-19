@@ -45,7 +45,7 @@
   .unmarked {
     background: #E3E3E3;
   }
-  .did {
+  .done {
     background: #3AE9C9;
   }
   .future {
