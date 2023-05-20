@@ -19,7 +19,7 @@ const logger: Handle = async ({ event, resolve }) => {
 
 const authMiddleware: Handle = async ({ event, resolve }) => {
   event.locals.auth = auth.handleRequest(event);
-  const publicRoutes = ['/login', '/register']
+  const publicRoutes = ['/login', '/register', '/callback']
   const path = event.url.pathname
   if (path != '/' && !publicRoutes.some(routePrefix => path.startsWith(routePrefix))) {
     const session = await event.locals.auth.validate()

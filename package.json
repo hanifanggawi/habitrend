@@ -23,7 +23,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"lucia-auth": "^1.5.0",
+		"lucia-auth": "^1.6.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
 		"prisma": "^4.14.1",
@@ -37,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.14.1",
+		"@lucia-auth/oauth": "^1.1.0",
 		"luxon": "^3.2.1"
 	}
 }
