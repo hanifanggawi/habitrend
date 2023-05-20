@@ -51,7 +51,7 @@
   <div class="habit">
     <div class="habit-name">{habit?.name}</div>
     <div class="input-group">
-      {#each ['did', 'missed', 'unmarked'] as status}
+      {#each ['done', 'missed', 'unmarked'] as status}
         <label class="{status}" style={selectedStatus === status ? `box-shadow:inset 0px 0px 0px 2px var(--${status});` : ''}>
           <input class={status} type=radio bind:group={selectedStatus} name="status" value={status} checked={selectedStatus === status} on:change={updateRecord}>
           <span class="radio-text">{status}</span>

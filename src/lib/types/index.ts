@@ -1,4 +1,4 @@
-export type HabitStatus = 'did' | 'missed' | 'unmarked' | 'future'
+export type HabitStatus = 'done' | 'missed' | 'unmarked' | 'future'
 
 export type HabitRecord = {
   id?: number
