@@ -51,7 +51,7 @@ export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthN
   let recordPointer = 0
 
   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-    if (date.getTime() === dbRecords[recordPointer]?.date.getTime()) {
+    if (date.toLocaleDateString() === dbRecords[recordPointer]?.date.toLocaleDateString()) {
       recordPointer++
       continue
     }
@@ -64,7 +64,6 @@ export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthN
     dbRecords.splice(recordPointer, 0, paddingRecord)
     recordPointer++
   }
-
   return dbRecords
 }
 
