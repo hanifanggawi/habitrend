@@ -2,7 +2,7 @@
 	import { page } from "$app/stores";
 	import type { HabitRecord } from "@prisma/client";
 	import { selectedHabitRecord, showSidepanel } from "../../store";
-	import { getDateQuery } from "../util";
+	import { getDateQuery, isSameDay } from "../util";
   
   export let habitRecord: HabitRecord
   const { date } = habitRecord
@@ -17,8 +17,8 @@
   const isFutureTag = (date > today) ? 'future-date' : ''
   let selectedTag: string
   selectedHabitRecord.subscribe(habitRecord => {
-    const isSelected = (date.toLocaleDateString() === habitRecord?.date.toLocaleDateString())
-    const isToday = ((today.toLocaleDateString() === date.toLocaleDateString()) && !habitRecord)
+    const isSelected = isSameDay(date, habitRecord?.date)
+    const isToday = isSameDay(today, date) && !habitRecord
     selectedTag = (isToday || isSelected) ? 'selected' : ''
   })
   function selectDay() {
