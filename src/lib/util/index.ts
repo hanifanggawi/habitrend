@@ -4,14 +4,15 @@ export function getDateLimits(monthNumber: number, year?: number) {
   year ||= new Date().getFullYear()
   const firstDayOfMonth = new Date(year, monthNumber, 1)
   const lastDayOfMonth = new Date(year, monthNumber + 1, 0)
+  firstDayOfMonth.setUTCHours(0, 0, 0, 0)
+  lastDayOfMonth.setUTCHours(0, 0, 0, 0)
 
-  const prevMonthOverlapCount = firstDayOfMonth.getDay() - 1
+  const prevMonthOverlapCount = firstDayOfMonth.getDay()
   const nextMonthOverlapCount = 6 - lastDayOfMonth.getDay()
 
   const startDate = new Date(year, monthNumber, -prevMonthOverlapCount)
   const endDate = new Date(year, monthNumber, lastDayOfMonth.getDate() + nextMonthOverlapCount)
-  startDate.setUTCHours(0, 0, 0, 0)
-  endDate.setUTCHours(0, 0, 0, 0)
+
   return {
     startDate,
     endDate
