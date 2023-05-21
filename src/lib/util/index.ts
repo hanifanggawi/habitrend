@@ -57,6 +57,9 @@ export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthN
   let recordPointer = 0
 
   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+    if (dbRecords[recordPointer]?.date) {
+      console.log('DISINI compare ', date, dbRecords[recordPointer]?.date)
+    }
     if (isSameDay(date, dbRecords[recordPointer]?.date)) {
       recordPointer++
       continue
@@ -70,6 +73,7 @@ export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthN
     dbRecords.splice(recordPointer, 0, paddingRecord)
     recordPointer++
   }
+  console.log('DISINI records', dbRecords.map(record => `${(record.id < 0 ? 'P' : '[]')}${record.date.getDate()}/${record.date.getMonth()}/${record.date.getFullYear()}`))
   return dbRecords
 }
 
