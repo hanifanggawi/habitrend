@@ -45,13 +45,19 @@ export function getDateQuery(url: URL) {
   }
 }
 
+function isSameDay(date1: Date, date2: Date) {
+  return (date1?.getDate() === date2?.getDate())
+    && (date1?.getMonth() === date2?.getMonth())
+    && (date1?.getFullYear() === date2?.getFullYear())
+}
+
 
 export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthNumber: number, year?: number): HabitRecord[] {
   const { startDate, endDate } = getDateLimits(monthNumber, year)
   let recordPointer = 0
 
   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-    if (date.toLocaleDateString() === dbRecords[recordPointer]?.date.toLocaleDateString()) {
+    if (isSameDay(date, dbRecords[recordPointer]?.date)) {
       recordPointer++
       continue
     }
