@@ -16,6 +16,7 @@ export const load = (async ({ params, url, locals }) => {
     const { selectedMonth, selectedYear } = getDateQuery(url)
     async function getMonthlyRecords(habitId: number, month: number, year: number) {
         const records = await fetchHabitRecords(habitId, month, year)
+        console.debug('DISINI initial records', records)
         if (records.length < 35) {
             return padMonthlyData(records, habitId, month, year)
         }
