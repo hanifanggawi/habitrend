@@ -18,14 +18,13 @@
   let selectedTag: string
   selectedHabitRecord.subscribe(habitRecord => {
     const isSelected = (date.toLocaleDateString() === habitRecord?.date.toLocaleDateString())
-    const isToday = ((today.toLocaleDateString() === date.toLocaleDateString()) && !$selectedHabitRecord)
+    const isToday = ((today.toLocaleDateString() === date.toLocaleDateString()) && !habitRecord)
     selectedTag = (isToday || isSelected) ? 'selected' : ''
   })
   function selectDay() {
     selectedHabitRecord.set(habitRecord)
     showSidepanel.set(true)
   }
-
 </script>
 
 <div class="daybox {status} {isCurrentMonthTag} {isFutureTag} {selectedTag}" on:click={selectDay} on:keypress={selectDay}>
