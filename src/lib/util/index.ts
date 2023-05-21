@@ -10,6 +10,8 @@ export function getDateLimits(monthNumber: number, year?: number) {
 
   const startDate = new Date(year, monthNumber, -prevMonthOverlapCount)
   const endDate = new Date(year, monthNumber, lastDayOfMonth.getDate() + nextMonthOverlapCount)
+  startDate.setUTCHours(0, 0, 0, 0)
+  endDate.setUTCHours(0, 0, 0, 0)
   return {
     startDate,
     endDate
