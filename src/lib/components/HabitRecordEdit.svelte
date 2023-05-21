@@ -10,18 +10,26 @@
   let selectedStatus = habitRecord.status as HabitStatus
   let displayDate = DateTime.fromJSDate(habitRecord.date).toFormat('EEEE, dd LLLL')
   selectedHabitRecord.subscribe(habitRecord => {
-    console.log('DISINI habitRecord.id', habitRecord.id)
     selectedStatus = habitRecord.status as HabitStatus
     displayDate = DateTime.fromJSDate(new Date(habitRecord.date)).toFormat('EEEE, dd LLLL')
   })
 
   async function updateRecord() {
+    // update the UI
+    habitRecordStore.update((habitRecords) => {
+      const index = habitRecords.findIndex(record => record.id === habitRecord.id)
+      habitRecords[index] = { 
+        ...habitRecords[index], 
+        status: selectedStatus
+      }
+      return habitRecords
+    })
+    // update the DB
     const reqBody = {
       habitId: habitRecord.habitId,
       status: selectedStatus,
       date: habitRecord.date
     }
-    console.log('DISINI reqBody', reqBody)
     const response = await fetch('/api/habit-record', {
       method: 'POST',
       headers: {
@@ -30,15 +38,7 @@
       body: JSON.stringify(reqBody)
     })
     const { data: updatedHabitRecord } = await response.json()
-    console.log('DISINI updatedHabitRecord', updatedHabitRecord)
-    habitRecordStore.update((habitRecords) => {
-      const index = habitRecords.findIndex(record => record.id === habitRecord.id)
-      habitRecords[index] = { 
-        ...updatedHabitRecord, 
-        date: new Date(updatedHabitRecord.date)
-      }
-      return habitRecords
-    })
+
     return updatedHabitRecord
   }
 

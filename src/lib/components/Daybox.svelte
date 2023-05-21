@@ -15,19 +15,24 @@
 
   const isCurrentMonthTag = (date.getMonth() !== selectedDay.getMonth()) ? 'inactive-month' : ''
   const isFutureTag = (date > today) ? 'future-date' : ''
-  const isTodayTag = (today.toLocaleDateString() === date.toLocaleDateString()) ? 'today' : ''
+  let selectedTag: string
+  selectedHabitRecord.subscribe(habitRecord => {
+    const isSelected = (date.toLocaleDateString() === habitRecord?.date.toLocaleDateString())
+    const isToday = ((today.toLocaleDateString() === date.toLocaleDateString()) && !habitRecord)
+    selectedTag = (isToday || isSelected) ? 'selected' : ''
+  })
   function selectDay() {
     selectedHabitRecord.set(habitRecord)
     showSidepanel.set(true)
   }
 </script>
 
-<div class="daybox {status} {isCurrentMonthTag} {isFutureTag} {isTodayTag}" on:click={selectDay} on:keypress={selectDay}>
+<div class="daybox {status} {isCurrentMonthTag} {isFutureTag} {selectedTag}" on:click={selectDay} on:keypress={selectDay}>
   <span>{date.getDate()}</span>
 </div>
 
 
-<style>
+<style lang="scss">
   .daybox {
     display: flex;
     width: 100%;
@@ -37,6 +42,10 @@
     border-radius: 4px;
     justify-content: end;
     cursor: pointer;
+
+    &:not(.future-date):hover {
+      box-shadow:inset 0px 0px 0px 2.5px var(--gray-light);
+    }
   }
 
   .missed {
@@ -59,17 +68,23 @@
     font-weight: 700;
   }
 
-  .inactive-month {
+  .inactive-month:not(.future-date) {
     opacity: 0.7;
     cursor: default;
   }
 
-  .future-date:not(.inactive-month) {
-    filter: brightness(95%);
+  .future-date.inactive-month {
+    span {
+      color: var(--gray-light);
+    }
+  }
+
+  .future-date {
+    filter: brightness(80%);
     cursor: default;
   }
 
-  .today {
+  .selected {
     box-shadow:inset 0px 0px 0px 2.5px #757575;
   }
 </style>

@@ -14,9 +14,7 @@ declare global {
 			session: Session | null,
 			auth: import("lucia-auth").AuthRequest;
 		}
-		interface PageData {
-			session: import('@supabase/supabase-js').Session | null,
-		}
+		// interface PageData {}
 		// interface Platform {}
 	}
 
