@@ -58,6 +58,7 @@ export function isSameDay(date1: Date, date2: Date) {
 export function padMonthlyData(dbRecords: HabitRecord[], habitId: number, monthNumber: number, year?: number): HabitRecord[] {
   const { startDate, endDate } = getDateLimits(monthNumber, year)
   let recordPointer = 0
+  console.log('DISINI initial dbRecords', dbRecords)
 
   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
     if (dbRecords[recordPointer]?.date) {
