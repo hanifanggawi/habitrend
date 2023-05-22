@@ -1,15 +1,18 @@
 import type { HabitRecord } from "@prisma/client"
+import { DateTime } from "luxon"
 
 export function getDateLimits(monthNumber: number, year?: number) {
-  year ||= new Date().getFullYear()
-  const firstDayOfMonth = new Date(year, monthNumber, 1)
-  const lastDayOfMonth = new Date(year, monthNumber + 1, 0)
+  const month = monthNumber + 1 // Luxon dates are 1 indexed
+  year ||= DateTime.utc().year
 
-  const prevMonthOverlapCount = firstDayOfMonth.getDay() - 1
-  const nextMonthOverlapCount = 6 - lastDayOfMonth.getDay()
+  const prevMonthOffset = DateTime.utc(year, month).weekday % 7
+  let nextMonthOffset = 6 - DateTime.utc(year, month).endOf('month').weekday
+  nextMonthOffset = (nextMonthOffset >= 0) ? nextMonthOffset : 6
 
-  const startDate = new Date(year, monthNumber, -prevMonthOverlapCount)
-  const endDate = new Date(year, monthNumber, lastDayOfMonth.getDate() + nextMonthOverlapCount)
+  const startDate = DateTime.utc(year, month).minus({ days: prevMonthOffset }).toJSDate()
+  const endDate = DateTime.utc(year, month).endOf('month').startOf('day').plus({ days: nextMonthOffset }).toJSDate()
+
+  console.log('start:', startDate.toISOString(), 'end:', endDate.toISOString())
   return {
     startDate,
     endDate
