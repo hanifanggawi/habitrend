@@ -10,7 +10,7 @@
         <h1 class="form-header">Login</h1>
         <form class="oauth-login" method="POST">
             <input type="hidden" value="ngetes">
-            <button class="button-outline oauth" formaction="/login?provider=google" type="submit">
+            <button class="button-outline oauth-button" formaction="/login?provider=google" type="submit">
                 <img src={googleIcon} alt="google-login" width="20">
                 <span>Sign in with google</span>
             </button>
@@ -54,6 +54,16 @@
             width: 100%;
             padding: 0.7em 0;
         }
+    }
+
+    .oauth-button {
+        border: 2px solid #f1f1f1;
+        color: var(--gray-light);
+        font-weight: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 1em;
     }
 </style>
 
